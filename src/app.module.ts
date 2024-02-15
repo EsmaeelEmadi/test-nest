@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { EmailService } from './email/email.service';
+import { MessagingModule } from './messaging/messaging.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { EmailService } from './email/email.service';
 
     MongooseModule.forRoot(process.env.MONGODB_URI, {}),
     UsersModule,
+    MessagingModule,
   ],
   controllers: [AppController],
   providers: [AppService, EmailService],

@@ -3,6 +3,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateUserDto } from './dto/create-user.dto';
 import * as multer from 'multer';
 import { UsersService } from './users.service';
+import { User } from './schemas/user.schema';
 
 @Controller('users')
 export class UsersController {
@@ -33,10 +34,10 @@ export class UsersController {
   }
 
 
-  // @Get()
-  // async findAll(): Promise<User[]> {
-  //   return this.usersService.findAll();
-  // }
+  @Get()
+  async findAll(): Promise<User[]> {
+    return this.usersService.findAll();
+  }
 }
 
 
