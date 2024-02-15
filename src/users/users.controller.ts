@@ -12,11 +12,6 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  async create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
-  }
-
-  @Post('upload-avatar')
   @UseInterceptors(FileInterceptor('avatar', {
     storage: multer.diskStorage({
       destination: './uploads', // Specify the directory to store the files
