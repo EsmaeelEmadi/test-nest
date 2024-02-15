@@ -1,9 +1,11 @@
-import {  UseInterceptors, UploadedFile, Controller, Get, Post, Body } from '@nestjs/common';
+import {  UseInterceptors, Res, Param, UploadedFile, Controller, Delete, Get, Post, Body } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateUserDto } from './dto/create-user.dto';
 import * as multer from 'multer';
 import { UsersService } from './users.service';
-import { User } from './schemas/user.schema';
+import { UserDocument } from './schemas/user.schema';
+import { Response } from 'express';
+
 
 @Controller('users')
 export class UsersController {
@@ -35,8 +37,25 @@ export class UsersController {
 
 
   @Get()
-  async findAll(): Promise<User[]> {
+  async findAll(): Promise<UserDocument[]> {
     return this.usersService.findAll();
+  }
+
+  @Get(':userId')
+  async findUser(@Param('userId') userId: string) {
+    return this.usersService.findUserById(userId);
+  }
+
+  @Get(':userId/avatar')
+  async getAvatar(@Param('userId') userId: string, @Res() res: Response) {
+    const { avatarPath } = await this.usersService.getUserAvatar(userId);
+    res.sendFile(avatarPath);
+  }
+
+  @Delete(':userId/avatar')
+  async deleteAvatar(@Param('userId') userId: string) {
+    await this.usersService.deleteUserAvatar(userId);
+    return { message: 'Avatar deleted successfully' };
   }
 }
 
