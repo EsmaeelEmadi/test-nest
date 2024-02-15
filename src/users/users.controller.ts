@@ -1,4 +1,4 @@
-import { Controller, Post, UseInterceptors, UploadedFile, Body } from '@nestjs/common';
+import {  UseInterceptors, UploadedFile, Controller, Get, Post, Body } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateUserDto } from './dto/create-user.dto';
 import * as multer from 'multer';
@@ -7,6 +7,11 @@ import { UsersService } from './users.service';
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
+
+  @Post()
+  async create(@Body() createUserDto: CreateUserDto) {
+    return this.usersService.create(createUserDto);
+  }
 
   @Post('upload-avatar')
   @UseInterceptors(FileInterceptor('avatar', {
@@ -26,4 +31,13 @@ export class UsersController {
     // Here, you might save the file information in the database, along with user data
     return this.usersService.create({...createUserDto, avatar: file?.filename});
   }
+
+
+  // @Get()
+  // async findAll(): Promise<User[]> {
+  //   return this.usersService.findAll();
+  // }
 }
+
+
+
