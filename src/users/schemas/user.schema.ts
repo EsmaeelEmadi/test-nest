@@ -11,6 +11,9 @@ export class User {
 
   @Prop({ unique: true, required: true, validate: IsEmail })
   email: string;
+
+  @Prop()
+  avatar: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
