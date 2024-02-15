@@ -1,3 +1,5 @@
+
+
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 
@@ -8,15 +10,15 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         name: 'RABBITMQ_SERVICE',
         transport: Transport.RMQ,
         options: {
-          urls: ['amqp://user:password@localhost:5672'], // RabbitMQ server URL
-          queue: 'users_queue', // Queue name for this example
+          urls: ['amqp://user:password@localhost:5672'], // Adjust as needed
+          queue: 'm',
           queueOptions: {
-            durable: false,
+            durable: true,
           },
         },
       },
     ]),
   ],
-  exports: [ClientsModule], // Export ClientsModule so it's injectable elsewhere
+  exports: [ClientsModule], // Export ClientsModule for injection in other modules
 })
 export class MessagingModule {}

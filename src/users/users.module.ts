@@ -5,11 +5,13 @@ import { UsersController } from './users.controller';
 import { User, UserSchema } from './schemas/user.schema';
 // Import the module where RABBITMQ_SERVICE is registered if it's not AppModule
 import { MessagingModule } from '../messaging/messaging.module'; // Adjust the path as needed
+import { EmailModule } from 'src/email/email.module';
 
 @Module({
   imports: [
+    MessagingModule,
+    EmailModule,
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
-    MessagingModule
   ],
   controllers: [UsersController],
   providers: [UsersService],

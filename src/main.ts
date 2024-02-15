@@ -6,21 +6,21 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalFilters(new AllExceptionsFilter());
-  await app.listen(3000);
 
 
-  const microservice = app.connectMicroservice<MicroserviceOptions>({
+  app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.RMQ,
     options: {
       urls: ['amqp://user:password@localhost:5672'],
-      queue: 'userCreated',
+      queue: 'm',
       queueOptions: {
-        durable: false,
+        durable: true,
       },
     },
   });
 
   await app.startAllMicroservices();
+  await app.listen(3000);
 }
 bootstrap();
 

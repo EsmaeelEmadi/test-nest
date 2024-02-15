@@ -17,7 +17,7 @@ export class UsersService {
     try {
       const createdUser = new this.userModel(createUserDto);
       await createdUser.save();
-      this.client.emit<any>('userCreated', { email: createdUser.email });
+      this.client.emit<any>('u', { email: createdUser.email });
       return createdUser;
     } catch (error) {
       if (error.code === 11000) {
@@ -30,6 +30,8 @@ export class UsersService {
   }
 
   async findAll(): Promise<UserDocument[]> {
+    console.log("find all users");
+    this.client.emit<any>('u', { email: "asdf ------------------" });
     return this.userModel.find().exec();
   }
 

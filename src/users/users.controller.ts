@@ -7,7 +7,7 @@ import { UserDocument } from './schemas/user.schema';
 import { Response } from 'express';
 
 
-@Controller('users')
+@Controller('api/users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
