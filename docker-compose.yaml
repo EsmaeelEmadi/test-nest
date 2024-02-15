@@ -13,3 +13,21 @@ services:
       - '27017:27017'
     volumes:
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+
+  rabbitmq:
+    image: 'rabbitmq:3-management'
+    hostname: 'rabbitmq'
+    environment:
+      RABBITMQ_DEFAULT_USER: 'user'
+      RABBITMQ_DEFAULT_PASS: 'password'
+    ports:
+      - '5672:5672' # RabbitMQ server
+      - '15672:15672' # Management console
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+
+volumes:
+  mongodb-data:
+    driver: local
+  rabbitmq-data:
+    driver: local

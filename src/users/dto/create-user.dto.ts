@@ -1,4 +1,10 @@
+import { IsNotEmpty, IsEmail } from 'class-validator';
+
 export class CreateUserDto {
-  readonly name: string;
-  readonly email: string;
+  @IsNotEmpty()
+  name: string;
+
+  @IsEmail({}, { message: 'Invalid email format' })
+  @IsNotEmpty()
+  email: string;
 }
